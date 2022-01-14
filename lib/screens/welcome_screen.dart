@@ -24,9 +24,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  child: Image.asset('assets/images/logo.png'),
-                  height: 60.0,
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: Image.asset('assets/images/logo.png'),
+                    height: 60.0,
+                  ),
                 ),
                 Text(
                   'Flash Chat',
