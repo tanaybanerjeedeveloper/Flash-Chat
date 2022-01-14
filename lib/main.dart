@@ -15,11 +15,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.blueAccent,
-        accentColor: Colors.lightBlueAccent,
+        primaryColor: Color(0xff4361ee),
+        accentColor: Color(0xff4895ef),
         scaffoldBackgroundColor: Color(0XFF03071e),
       ),
-      home: RegisterScreen(),
+      initialRoute: WelcomeScreen.id,
+      routes: {
+        LoginScreen.id: (context) => LoginScreen(),
+        RegisterScreen.id: (context) => RegisterScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+      },
     );
   }
 }

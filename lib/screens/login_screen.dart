@@ -4,6 +4,7 @@ import '../widgets/text_field.dart';
 import '../widgets/rounded_rectangular_btn.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const String id = 'login_screen'; //will be used for navigation
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+//importing screens
+import 'login_screen.dart';
+import 'register_screen.dart';
 //importing widgets
 import '../widgets/rounded_rectangular_btn.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  static const String id = 'welcome_screen';
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
@@ -38,13 +42,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             padding:
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
             child: RoundedBtn(
-                text: 'Log In', colour: Theme.of(context).accentColor),
+                text: 'Log In',
+                colour: Theme.of(context).accentColor,
+                navigatingFunction: () =>
+                    Navigator.pushNamed(context, LoginScreen.id)),
           ),
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
             child: RoundedBtn(
-                text: 'Register', colour: Theme.of(context).primaryColor),
+                text: 'Register',
+                colour: Theme.of(context).primaryColor,
+                navigatingFunction: () =>
+                    Navigator.pushNamed(context, RegisterScreen.id)),
           ),
         ],
       ),
