@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 //importing widgets
-import '../widgets/text_field.dart';
 import '../widgets/rounded_rectangular_btn.dart';
+//importing constants
+import 'package:chat_app/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen'; //will be used for navigation
@@ -28,15 +29,19 @@ class _LoginScreenState extends State<LoginScreen> {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-            child: TextFieldWidget(
-              hintText: 'Enter your email',
+            child: TextField(
+              onChanged: (value) {},
+              decoration:
+                  kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
             ),
           ),
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-            child: TextFieldWidget(
-              hintText: 'Enter your password',
+            child: TextField(
+              onChanged: (value) {},
+              decoration: kTextFieldDecoration.copyWith(
+                  hintText: 'Enter your password'),
             ),
           ),
           Padding(

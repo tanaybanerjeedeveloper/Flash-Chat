@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 //importing widgets
-import '../widgets/text_field.dart';
+
 import '../widgets/rounded_rectangular_btn.dart';
+//importing constants
+import '../constants.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String id = 'register_screen';
@@ -30,8 +32,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               vertical: 20.0,
               horizontal: 16.0,
             ),
-            child: TextFieldWidget(
-              hintText: 'Enter your email',
+            // child: TextFieldWidget(
+            //   hintText: 'Enter your email',
+            // ),
+            child: TextField(
+              onChanged: (value) {},
+              decoration:
+                  kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
             ),
           ),
           Padding(
@@ -39,8 +46,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               vertical: 20.0,
               horizontal: 16.0,
             ),
-            child: TextFieldWidget(
-              hintText: 'Enter your password',
+            // child: TextFieldWidget(
+            //   hintText: 'Enter your password',
+            // ),
+            child: TextField(
+              onChanged: (value) {},
+              decoration: kTextFieldDecoration.copyWith(
+                  hintText: 'Enter your password'),
             ),
           ),
           Padding(
