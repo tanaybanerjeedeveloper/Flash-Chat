@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 class RoundedBtn extends StatelessWidget {
   final String text;
   final Color colour;
-  final Function navigatingFunction;
-  RoundedBtn(
-      {@required this.text, @required this.colour, this.navigatingFunction});
+  final Function onPressed;
+  RoundedBtn({@required this.text, @required this.colour, this.onPressed});
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: navigatingFunction,
+      onPressed: onPressed,
       child: Text(text),
       style: ElevatedButton.styleFrom(
         primary: colour,

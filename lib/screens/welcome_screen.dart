@@ -74,8 +74,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: RoundedBtn(
                 text: 'Log In',
                 colour: Theme.of(context).accentColor,
-                navigatingFunction: () =>
-                    Navigator.pushNamed(context, LoginScreen.id)),
+                onPressed: () => Navigator.pushNamed(context, LoginScreen.id)),
           ),
           Padding(
             padding:
@@ -83,7 +82,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: RoundedBtn(
                 text: 'Register',
                 colour: Theme.of(context).primaryColor,
-                navigatingFunction: () =>
+                onPressed: () =>
                     Navigator.pushNamed(context, RegisterScreen.id)),
           ),
         ],

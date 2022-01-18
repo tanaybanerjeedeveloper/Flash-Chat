@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import './screens/welcome_screen.dart';
 import './screens/login_screen.dart';
 import './screens/register_screen.dart';
+import './screens/chat_screen.dart';
 import './home_page.dart';
+//import firebase core plugin
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -24,6 +29,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
+        ChatScreen.id: (context) => ChatScreen(),
       },
     );
   }
