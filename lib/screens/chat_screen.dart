@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-//importing firebase auth
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../constants.dart';
 
 class ChatScreen extends StatefulWidget {
   static const id = 'chat_screen';
@@ -9,7 +10,9 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+  String _messageText;
   User loggedInUser;
 
   @override
@@ -35,6 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
+              _auth.signOut();
               Navigator.pop(context);
             },
           )
@@ -43,14 +47,37 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(
-              child: Text(
-            'chat screen',
-            textAlign: TextAlign.center,
-          )),
+          Text('all messages will be here'),
+          Container(
+            decoration: kMessageContainerDecoration,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: TextField(
+                    onChanged: (value) {
+                      _messageText = value;
+                    },
+                    decoration: kMessageTextFieldDecoration,
+                  ),
+                ),
+                FlatButton(
+                    onPressed: () {
+                      _firestore.collection('messages').add({
+                        'text': _messageText,
+                        'sender': loggedInUser.email,
+                      });
+                    },
+                    child: Text(
+                      'Send',
+                      style: kSendButtonTextStyle,
+                    )),
+              ],
+            ),
+          ),
         ],
       ),
     );

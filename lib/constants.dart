@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // const kTextFieldDecoration = InputDecoration(
@@ -35,4 +36,22 @@ const kTextFieldDecoration = InputDecoration(
       Radius.circular(32.0),
     ),
   ),
+);
+
+const kMessageContainerDecoration = BoxDecoration(
+  border: Border(
+    top: BorderSide(color: Color(0xff4361ee), width: 2.0),
+  ),
+);
+
+const kMessageTextFieldDecoration = InputDecoration(
+  hintText: 'Type your message here...',
+  border: InputBorder.none,
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+);
+
+const kSendButtonTextStyle = TextStyle(
+  color: Color(0xff4361ee),
+  fontWeight: FontWeight.bold,
+  fontSize: 18.0,
 );
