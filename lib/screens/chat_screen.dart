@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../constants.dart';
+// import '../widgets/messagesStream.dart';
+import '../widgets/messageBubble.dart';
+
+User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static const id = 'chat_screen';
@@ -13,7 +17,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   String _messageText;
-  User loggedInUser;
+  final _messageTextController = TextEditingController();
+  // User loggedInUser;
 
   @override
   void initState() {
@@ -50,7 +55,7 @@ class _ChatScreenState extends State<ChatScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('all messages will be here'),
+          MessagesStream(),
           Container(
             decoration: kMessageContainerDecoration,
             child: Row(
@@ -58,6 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: _messageTextController,
                     onChanged: (value) {
                       _messageText = value;
                     },
@@ -66,10 +72,16 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 FlatButton(
                     onPressed: () {
-                      _firestore.collection('messages').add({
-                        'text': _messageText,
-                        'sender': loggedInUser.email,
-                      });
+                      _messageTextController.clear();
+                      if (_messageText != null || _messageText != '') {
+                        _firestore.collection('messages').add({
+                          'text': _messageText,
+                          'sender': loggedInUser.email,
+                          'timestamp': FieldValue.serverTimestamp(),
+                        });
+                      } else {
+                        return;
+                      }
                     },
                     child: Text(
                       'Send',
@@ -80,6 +92,45 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MessagesStream extends StatelessWidget {
+  final firestore = FirebaseFirestore.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestore.collection('messages').orderBy('timestamp').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
+          );
+        }
+        var messages = snapshot.data.docs.reversed;
+
+        return Expanded(
+          child: ListView(
+            reverse: true,
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            children: messages.map((message) {
+              final currentUser = loggedInUser.email;
+
+              return MessageBubble(
+                text: message['text'],
+                sender: message['sender'],
+                isMe: currentUser == message['sender'],
+              );
+            }
+                // Text('${message['text']} from ${message['sender']}'),
+                ).toList(),
+          ),
+        );
+      },
     );
   }
 }
